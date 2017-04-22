@@ -18,7 +18,7 @@ from functools import wraps
 ########################################################
 
 #Decorator for authentcating Candidates
-#Todo : Redirecrt to new page on false login
+#Todo : Redirect to new page on false login
 def candidate_login(view_func):
     def _decorator(request, *args, **kwargs):
         if(request.user.groups.filter(name__in=['Candidate']).exists()):

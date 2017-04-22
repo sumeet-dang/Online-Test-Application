@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h1 class='schedule-date-loader'>{{ schedule.test_date }}</h1>
+
+    <label>Num of Questions assigned</label>
+    <input type="text" class="Areaclass form-control" value="{{ schedule.num_questions }}" disabled></input>
+
+    <br>
+    <br>
+
+
+{% endblock %}

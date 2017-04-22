@@ -1,0 +1,54 @@
+.textinputclass{
+    width : 70%!important;
+    margin-right:100;
+    padding: 10;
+    text-align: left;
+    enabled:false;
+}
+
+.test-input-class{
+    height: 100px!important;
+}
+
+.Areaclass{
+    width:70%!important;
+}
+
+.createuser-form{
+    width:50%;
+    margin-right:100;
+    text-align: left;
+}
+
+.font-bitter{
+  font-family: 'Bitter', serif;
+  font-size:1.5em;
+}
+
+.centerstage{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.font-sans-pro{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: :1.5em;
+}
+
+.navbar-right{
+  margin-right:10px;
+}
+
+.activity-list{
+  margin-left:50px;
+  border:black;
+  float: left;
+  height: 100%;
+  width: auto;
+}
+
+.template-content{
+  margin-left:300px;
+  height: 100%;
+}

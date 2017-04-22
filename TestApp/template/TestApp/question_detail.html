@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h1 class='question_statement loader'>{{ question.statement }}</h1>
+
+  {% if question.image %}
+    <div class="ques-img">
+      <img src="{{ question.image.url }}" />
+    </div>
+  {% endif %}
+    <label>Question Statement</label>
+    <input type="text" class="Areaclass form-control" value="{{ question.statement }}"></input>
+    <label>Option1</label>
+    <input type="text" class="Areaclass form-control" value="{{ question.option1 }}"></input>
+    <label>Option2</label>
+    <input type="text" class="Areaclass form-control" value="{{ question.option1 }}"></input>
+    <label>Option3</label>
+    <input type="text" class="Areaclass form-control" value="{{ question.option1 }}"></input>
+    <label>Option4</label>
+    <input type="text" class="Areaclass form-control" value="{{ question.option1 }}"></input>
+    <label>Answer</label>
+    <input type="text" class="Areaclass form-control" value="{{ question.answer }}"></input>
+
+    <br>
+    <br>
+    {% if user.is_authenticated %}
+        <a class="btn btn-primary" href="{% url 'question_edit' pk=question.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+        <a class="btn btn-primary" href="{% url 'question_remove' pk=question.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+    {% endif %}
+
+
+{% endblock %}

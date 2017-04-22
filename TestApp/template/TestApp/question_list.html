@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="centerstage">
+    {% for question in object_list %}
+        <div class="object">
+
+            <h4>{{forloop.counter}}. {{ question.statement }}  </h4><br>
+            {% if user.is_authenticated %}
+                <a class="btn btn-primary" href="{% url 'question_edit' pk=question.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a class="btn btn-primary" href="{% url 'question_remove' pk=question.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+            {% endif %}
+
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

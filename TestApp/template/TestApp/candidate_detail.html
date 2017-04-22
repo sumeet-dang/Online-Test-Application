@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <h1 class='candidate-name-loader'>{{ candidate.first_name }} {{ candidate.last_name }}</h1>
+
+    <label>Candidate Email</label>
+    <input type="text" class="textinputclass form-control" value="{{ candidate.email }}" disabled></input>
+    <label>Candidate Id</label>
+    <input type="text" class="textinputclass form-control" value="{{ candidate.login_id }}" disabled></input>
+    <label>Candidate Password</label>
+    <input type="text" class="textinputclass form-control" value="{{ candidate.password }}" disabled></input>
+
+
+{% endblock %}

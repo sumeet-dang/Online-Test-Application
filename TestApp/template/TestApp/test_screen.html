@@ -1,0 +1,75 @@
+{% extends 'candidate_base.html' %}
+
+{% block content %}
+<p id="countdown_timer"></p>
+<br><br>
+
+<form class="" method="post" id="test_form">
+  {% csrf_token %}
+  {% for o in obj %}
+  <label>{{forloop.counter}}.</label>
+  {% if o.image %}
+    <div class="ques-img">
+      <img src="{{ o.image.url }}" />
+    </div>
+  {% endif %}
+  <label>Question Statement</label>
+  <textarea class="Areaclass form-control" placeholder="{{ o.statement }}" disabled rows="8" cols="50"></textarea>
+  <div class="radio">
+  <label>
+    <input type="radio" name="chosen{{forloop.counter}}" value="1">
+    {{ o.option1 }}
+  </label>
+  </div>
+  <div class="radio">
+  <label>
+    <input type="radio" name="chosen{{forloop.counter}}" value="2">
+    {{ o.option2 }}
+  </label>
+  </div>
+  <div class="radio">
+  <label>
+    <input type="radio" name="chosen{{forloop.counter}}" value="3">
+    {{ o.option3 }}
+  </label>
+  </div>
+  <div class="radio">
+  <label>
+    <input type="radio" name="chosen{{forloop.counter}}" value="4">
+    {{ o.option4 }}
+  </label>
+  </div>
+<br><br><br>
+
+
+  <input type="hidden" class="Areaclass form-control" name="answer{{forloop.counter}}" test-input-class value="{{ o.answer }}"></input>
+  {% empty %}
+    <h1>Nothing to display</h1>
+  {% endfor %}
+
+<br><br>
+
+<input type="submit" class="btn btn-success" value="Submit Test"></input>
+<br><br><br><br>
+</form>
+
+<script>
+var minutes = 0;
+var seconds = 10;
+var x = setInterval(function() {
+  if (minutes <= 0 && seconds == 0) {
+        document.getElementById("test_form").submit();
+  }
+  else {
+    if(seconds > 0) {
+      seconds = seconds - 1;
+    }
+    else {
+      seconds = 59;
+      minutes = minutes - 1;
+    }
+    document.getElementById("countdown_timer").innerHTML = minutes + "m " + seconds + "s ";
+  }
+}, 1000);
+</script>
+{% endblock %}

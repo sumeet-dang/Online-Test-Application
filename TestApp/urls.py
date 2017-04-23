@@ -37,6 +37,7 @@ urlpatterns =[
     url(r'^schedule_list/$',admin_login(views.TestScheduleListView.as_view()),name='schedule_list'),
     url(r'^schedule/(?P<pk>\d+)/edit/$', admin_login(views.ScheduleUpdateView.as_view()), name='schedule_edit'),
 
-    url(r'^start_test',login_required(views.startaptitudetest),name='start_test')
+    url(r'^start_test',login_required(views.startaptitudetest),name='start_test'),
+    url(r'^select_test',login_required(views.select_test),name='select_test'),
 
 ]

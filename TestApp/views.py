@@ -173,16 +173,25 @@ class ScheduleUpdateView(LoginRequiredMixin,UpdateView):
 
 @candidate_login
 def startaptitudetest(request):
-    length = 2
+    question_row = TestSchedule.objects.values('num_questions')[0]
+    num_questions = question_row['num_questions']
     correct_count = 0
     if request.method == "POST":
         print(request.POST)
-        for i in range(length):
+        for i in range(num_questions):
             choice = 'chosen' + str(i + 1)
             answer = 'answer' + str(i + 1)
             if(request.POST.get(choice,"5") == request.POST.get(answer)):
                 correct_count += 1
         return render(request,'test_result.html',{'score':correct_count})
     else:
-        obj = AptitudeQuestion.objects.order_by('?')[:length]
-        return render(request,'test_screen.html',{'obj':obj})
+        obj = AptitudeQuestion.objects.order_by('?')[:num_questions]
+        return render(request,'aptitudetest_screen.html',{'obj':obj})
+
+@candidate_login
+def select_test(request):
+    apti_row = TestSchedule.objects.values('is_open')[0]
+    is_apti_scheduled = apti_row['is_open']
+    if(is_apti_scheduled == True):
+        aptitude_scheduled = "true";
+    return render(request,'select_test.html',{'aptitude_scheduled':is_apti_scheduled})

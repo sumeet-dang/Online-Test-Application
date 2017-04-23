@@ -1,0 +1,24 @@
+{% extends 'candidate_base.html' %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="form-inline">
+      <div class="jumbotron Areaclass">
+        {% if aptitude_scheduled %}
+        <h3>Aptitude Test Is Scheduled
+        <a href="{% url 'start_test' %}" class="btn btn-primary btn-lg active" role="button">Start Test</a>
+        </h3>
+        {% else %}
+        <h3>Aptitude Test Is Not Scheduled
+
+        <a href="" class="btn btn-primary btn-lg active" role="button" disabled>Start Test</a>
+        </h3>
+        {% endif %}
+
+
+  </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -47,10 +47,11 @@ class AptitudeQuestionForm(forms.ModelForm):
 class TestScheduleForm(forms.ModelForm):
 
     class Meta:
+        max_ques = AptitudeQuestion.objects.count()
         model = TestSchedule
         fields = '__all__'
         widgets = {
-            'subject' : forms.Select(attrs={'class' : 'AreaClass form-control'}),
+            'subject' : forms.Select(attrs={'class' : 'form-control','style':'max-width:70%'}),
             'isopen' : forms.CheckboxInput(attrs={'class' : 'AreaClass form-control'}),
-            'num_questions' : forms.NumberInput(attrs={'class' : 'Areaclass form-control'}),
+            'num_questions' : forms.NumberInput(attrs={'class' : 'Areaclass form-control','min' : '1', 'max' : '5'}),
         }

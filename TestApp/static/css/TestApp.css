@@ -6,6 +6,11 @@
     enabled:false;
 }
 
+#countdown_timer{
+    font-weight: bold;
+    font-style: italic;
+}
+
 .test-input-class{
     height: 100px!important;
 }

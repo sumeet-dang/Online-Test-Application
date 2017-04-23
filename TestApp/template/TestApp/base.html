@@ -21,7 +21,7 @@
     <nav class='navbar navbar-inverse navbar-fixed-top font-bitter'>
         <div class="container-fluid">
           <ul class='nav navbar-nav'>
-            <li><a href="{% url 'candidate_index' %}">Home</a></li>
+            <li><a href="{% url 'index' %}">Home</a></li>
             <li><a href="{% url 'about' %}">About</a></li>
             <li><a class="btn btn-block btn-social btn-lg btn-google-plus" href="https://www.github.com">
           <i class="fa fa-github"></i>
@@ -47,7 +47,7 @@
 
 <br><br><br><br><br>
 
-    <div class="activity-list">
+    <div class="activity-list" id="base_list">
     <ul class="nav nav-pills nav-stacked">
       <li role="presentation"><a href="{% url 'index' %}">Home</a></li>
       <li role="presentation"><a href="{% url 'candidate_list' %}">List Candidate</a></li>

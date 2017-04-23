@@ -3,9 +3,11 @@
 
 {% block content %}
   <div class="container">
-
+    <script>
+      document.getElementById("base_list").style.visibility = "hidden";
+    </script>
     <h2>Please Login: </h2>
-    <h3>(Must be SuperUser, please check admin for issues.)</h3>
+
     {% if form.errors %}
         <p>Your username and password didn't match.Please try again!</p>
     {% endif %}
@@ -17,7 +19,7 @@
         <input type="submit" class='btn btn-primary' value="Login" />
         <input type="hidden" name="next" value="{{ next }}" />
 
-        <p>{{user.username}}</p>
     </form>
   </div>
+
 {% endblock %}

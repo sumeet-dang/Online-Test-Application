@@ -14,7 +14,7 @@ from functools import wraps
 
 
 ########################################################
-###################My Decorators########################
+###############Custom Decorators########################
 ########################################################
 
 #Decorator for authentcating Candidates
@@ -25,13 +25,39 @@ def candidate_login(view_func):
             response = view_func(request, *args, **kwargs)
             return response
         else:
-            print("checkpoint")
+            return redirect(reverse('invalid_login'))
     return wraps(view_func)(_decorator)
+
+
+#Decorator for authentcating admin
+#Todo : Redirect to new page on false login
+def admin_login(view_func):
+    def _decorator(request, *args, **kwargs):
+        if(request.user.groups.filter(name__in=['Candidate']).exists()):
+            return redirect(reverse('invalid_login'))
+        else:
+            response = view_func(request, *args, **kwargs)
+            return response
+    return wraps(view_func)(_decorator)
+
+
+"""Index check
+            Check which group the login belongs to
+            and redirect accordingly"""
+def Check_privledges(request):
+    if(request.user != "AnonymousUser"):
+        if(request.user.groups.filter(name__in=['Candidate']).exists()):
+            return render(request,"candidate_index.html")
+        else:
+            return render(request,"index.html")
+    else:
+        return redirect(reverse('login'))
+
 
 ########################################################
 ################User Model Views########################
 ########################################################
-@login_required
+@admin_login
 def CreateUserView(request):
     if request.method == "POST":
         form = CandidateForm(request.POST)
@@ -41,6 +67,7 @@ def CreateUserView(request):
     else:
         form = CandidateForm()
     return render(request,'NewUser.html',{'form':form})
+
 
 class CandidateListView(LoginRequiredMixin,ListView):
     login_url = '/accounts/login/'
@@ -66,6 +93,7 @@ class QuestionDeleteView(LoginRequiredMixin,DeleteView):
     success_url = reverse_lazy('question_list')
     template_name = 'question_confirm_delete.html'
 
+
 class QuestionUpdateView(LoginRequiredMixin,UpdateView):
     login_url = '/login/'
     redirect_field_name = 'TestApp/index.html'
@@ -76,6 +104,7 @@ class QuestionUpdateView(LoginRequiredMixin,UpdateView):
     def get_success_url(self):
         return reverse('question_list')
 
+
 class QuestionListView(LoginRequiredMixin,ListView):
     login_url = '/accounts/login/'
     redirect_field_name = 'TestApp/index.html'
@@ -83,6 +112,7 @@ class QuestionListView(LoginRequiredMixin,ListView):
     model = AptitudeQuestion
     form = AptitudeQuestionForm
     #return render(request,'question_list.html',{'form':form})
+
 
 class CreateQuestionView(LoginRequiredMixin,CreateView):
     login_url = '/accounts/login/'
@@ -93,6 +123,7 @@ class CreateQuestionView(LoginRequiredMixin,CreateView):
 
     def get_success_url(self):
         return reverse('question_list')
+
 
 class QuestionDetailView(LoginRequiredMixin,DetailView):
     login_url ='/accounts/login/'
@@ -115,6 +146,7 @@ class QuestionDetailView(LoginRequiredMixin,DetailView):
 #     def get_success_url(self):
 #         return reverse('schedule_list')
 
+
 class TestScheduleListView(LoginRequiredMixin,ListView):
     login_url = '/accounts/login/'
     redirect_field_name = 'TestApp/index.html'
@@ -122,10 +154,12 @@ class TestScheduleListView(LoginRequiredMixin,ListView):
     form_class = TestScheduleForm
     model = TestSchedule
 
+
 class ScheduleDeleteView(LoginRequiredMixin,DeleteView):
     model = TestSchedule
     success_url = reverse_lazy('schedule_list')
     template_name = 'schedule_confirm_delete.html'
+
 
 class ScheduleUpdateView(LoginRequiredMixin,UpdateView):
     login_url = '/login/'

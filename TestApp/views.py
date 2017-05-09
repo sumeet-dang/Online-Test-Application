@@ -12,6 +12,7 @@ from django.views.generic import (TemplateView,ListView,
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from functools import wraps
+import datetime
 
 
 ########################################################
@@ -203,13 +204,17 @@ def startaptitudetest(request):
     time_limit = time_limit_row['time_limit']
     print(time_limit)
     if request.method == "POST":
-        print(request.POST)
         for i in range(num_questions):
             choice = 'chosen' + str(i + 1)
             answer = 'answer' + str(i + 1)
             if(request.POST.get(choice,"5") == request.POST.get(answer)):
                 correct_count += 1
-        return render(request,'test_result.html',{'score':correct_count})
+        candidate_name = Candidate.objects.get(login_id__exact=request.user)
+        score_new = CandidateScores(candidate_name=candidate_name, date_taken=datetime.datetime.now(), score=correct_count)
+        score_new.save()
+        candidate_scores = CandidateScores.objects.filter(candidate_name__exact=candidate_name)
+
+        return render(request,'test_result.html',{'candidate_scores':candidate_scores,'current_score':correct_count})
     else:
         obj = AptitudeQuestion.objects.order_by('?')[:num_questions]
         return render(request,'aptitudetest_screen.html',{'obj':obj,'time_limit':time_limit})

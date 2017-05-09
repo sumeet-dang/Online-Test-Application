@@ -2,6 +2,25 @@
 
 {% block content %}
 
-  <h2>You score is {{ score }}</h2>
+  <h3>Latest Test Score : {{ current_score }}</h3>
+    <div class="object">
+      <table class="score-table">
+      <tr>
+        <th>Candidate</th>
+        <th>Date Of Test</th>
+        <th>Score</th>
+      </tr>
+              {% for candidatescore in candidate_scores %}
+                  <tr>
+                      <td>{{ candidatescore.candidate_name }} </td>
+                      <td>{{ candidatescore.date_taken }} </td>
+                      <td>{{ candidatescore.score }} </td>
+
+                  </tr>
+              {% endfor %}
+      </table>
+
+    </div>
+
 
 {% endblock %}

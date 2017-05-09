@@ -17,8 +17,11 @@
       <br>
       <img src="{{ o.image.url }}" />
     </div>
-  {% endif %}
+    <label>Question Statement</label>
+  {% else %}
   <label>{{forloop.counter}}.</label><label>Question Statement</label>
+  {% endif %}
+  
   <textarea class="Areaclass form-control" placeholder="{{ o.statement }}" disabled rows="8" cols="50"></textarea>
   <div class="radio">
   <label>
@@ -79,7 +82,7 @@ var x = setInterval(function() {
   }
 }, 1000);
 
-window.onbeforeunload = function(event) {    
+window.onbeforeunload = function(event) {
     return 'Are you sure you want to leave?';
 };
 </script>

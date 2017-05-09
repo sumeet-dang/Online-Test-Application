@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 {% load staticfiles %}
-
 <html>
   <head>
     <meta charset="utf-8">
@@ -13,7 +12,7 @@
 <link rel="stylesheet" href="/static/css/TestApp.css">
 
 <!-- Googe Fonts -->
-<link href="https://fonts.googleapis.com/css?family=Bitter|Source+Sans+Pro" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Bitter|Source+Sans+Pro|Eczar" rel="stylesheet">
 
 <script src="https://use.fontawesome.com/5a1ea623d3.js"></script>
 
@@ -48,25 +47,16 @@
 
 <br><br><br><br><br>
 
-    <div class="activity-list">
-    <ul class="nav nav-pills nav-stacked">
-      <li role="presentation" class="active"><a href="{% url 'index' %}">Home</a></li>
-      <li role="presentation" class="active"><a href="{% url 'select_test' %}">Select Test</a></li>
-      <li role="presentation" class="active"><a href="#">View History</a></li>
-    </ul>
-</div>
 
-  <div class="template-content">
+
+
   {% block content %}
 
   {% endblock %}
-</div>
+  <div class="footer">
+    <p>Website Created by <a href="mailto:sumeet.dang101@gmail.com?Subject=Online%20Portal" target="_top" class="emphasize">Sumeet Dang</a> ©</p>
+  </div>
 
-<div class="footer">
-  <p>Website Created by <a href="mailto:sumeet.dang101@gmail.com?Subject=Online%20Portal" target="_top" class="emphasize">Sumeet Dang</a> ©</p>
-</div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
 </html>

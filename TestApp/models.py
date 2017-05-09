@@ -69,6 +69,15 @@ class TestSchedule(models.Model):
     subject = models.CharField(max_length=20,choices=SUB_CHOICES)
     is_open = models.BooleanField()
     num_questions = models.SmallIntegerField()
+    time_limit = models.SmallIntegerField()
 
     def __str__(self):
         return str(self.subject)
+
+class CandidateScores(models.Model):
+    candidate_name = models.ForeignKey('Candidate',on_delete=models.CASCADE)
+    date_taken = models.DateTimeField()
+    score = models.SmallIntegerField()
+
+    def __str__(self):
+        return str(str(self.candidate_name) + " Test Date - " + str(self.date_taken))

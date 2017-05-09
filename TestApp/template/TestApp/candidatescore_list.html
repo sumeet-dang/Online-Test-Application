@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="score-table">
+<tr>
+  <th>Candidate</th>
+  <th>Date Of Test</th>
+  <th>Score</th>
+  <th></th>
+</tr>
+        {% for candidatescore in object_list %}
+            <tr>
+                <td>{{ candidatescore.candidate_name }} </td>
+                <td>{{ candidatescore.date_taken }} </td>
+                <td>{{ candidatescore.score }} </td>
+                <td><a class="btn btn-primary" href="{% url 'score_remove' pk=candidatescore.pk %}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            </tr>
+        {% endfor %}
+</table>
+
+{% endblock %}

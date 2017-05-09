@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from TestApp.forms import (CandidateForm,TeacherForm,
-                            AptitudeQuestionForm,TestScheduleForm)
+                            AptitudeQuestionForm,TestScheduleForm,
+                            CandidateScoresForm)
 
-from TestApp.models import AptitudeQuestion,Candidate,TestSchedule
+from TestApp.models import AptitudeQuestion,Candidate,TestSchedule,CandidateScores
 from django.contrib.auth.decorators import login_required
 from django.views.generic import (TemplateView,ListView,
                                   DetailView,CreateView,
@@ -45,13 +46,13 @@ def admin_login(view_func):
             Check which group the login belongs to
             and redirect accordingly"""
 def Check_privledges(request):
-    if(request.user != "AnonymousUser"):
+    if(request.user.is_authenticated()):
         if(request.user.groups.filter(name__in=['Candidate']).exists()):
             return render(request,"candidate_index.html")
         else:
-            return render(request,"index.html")
+            return render(request,"admin_index.html")
     else:
-        return redirect(reverse('login'))
+        return redirect(reverse('home'))
 
 
 ########################################################
@@ -171,11 +172,36 @@ class ScheduleUpdateView(LoginRequiredMixin,UpdateView):
     def get_success_url(self):
         return reverse('schedule_list')
 
+########################################################
+############CandidateScore Model Views##################
+########################################################
+
+class CandidateScoresListView(LoginRequiredMixin,ListView):
+    login_url = '/accounts/login/'
+    redirect_field_name = 'TestApp/index.html'
+    template_name = 'candidatescore_list.html'
+    form_class = CandidateScoresForm
+    model = CandidateScores
+
+
+class CandidateScoresDeleteView(LoginRequiredMixin,DeleteView):
+    model = CandidateScores
+    success_url = reverse_lazy('score_list')
+    template_name = 'score_confirm_delete.html'
+
+
+########################################################
+###############Test Screen Views########################
+########################################################
+
 @candidate_login
 def startaptitudetest(request):
     question_row = TestSchedule.objects.values('num_questions')[0]
     num_questions = question_row['num_questions']
     correct_count = 0
+    time_limit_row = TestSchedule.objects.values('time_limit')[0]
+    time_limit = time_limit_row['time_limit']
+    print(time_limit)
     if request.method == "POST":
         print(request.POST)
         for i in range(num_questions):
@@ -186,7 +212,7 @@ def startaptitudetest(request):
         return render(request,'test_result.html',{'score':correct_count})
     else:
         obj = AptitudeQuestion.objects.order_by('?')[:num_questions]
-        return render(request,'aptitudetest_screen.html',{'obj':obj})
+        return render(request,'aptitudetest_screen.html',{'obj':obj,'time_limit':time_limit})
 
 @candidate_login
 def select_test(request):

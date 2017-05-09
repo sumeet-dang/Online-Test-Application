@@ -1,6 +1,7 @@
 from django import forms
-
-from TestApp.models import Candidate,Admin,AptitudeQuestion,TestSchedule
+from django.contrib.auth.forms import AuthenticationForm
+from TestApp.models import (Candidate,Admin,AptitudeQuestion,
+                                    TestSchedule,CandidateScores)
 
 
 class CandidateForm(forms.ModelForm):
@@ -54,4 +55,21 @@ class TestScheduleForm(forms.ModelForm):
             'subject' : forms.Select(attrs={'class' : 'form-control','style':'max-width:70%'}),
             'isopen' : forms.CheckboxInput(attrs={'class' : 'AreaClass form-control'}),
             'num_questions' : forms.NumberInput(attrs={'class' : 'Areaclass form-control','min' : '1', 'max' : '5'}),
+            'time_limit' : forms.NumberInput(attrs={'class' : 'Areaclass form-control','min' : '1'}),
         }
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(label="Username", max_length=30,
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'username'}))
+    password = forms.CharField(label="Password", max_length=30,
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'password', 'type': 'password'}))
+
+
+class CandidateScoresForm(forms.ModelForm):
+    model = CandidateScores
+    fields = '__all__'
+    widgets = {
+        'candidate_name' : forms.TextInput(attrs={'class' : 'textinputclass form-control'}),
+        'date_taken' : forms.TextInput(attrs={'class' : 'textinputclass form-control','type' : 'date'}),
+        'score' : forms.TextInput(attrs={'class' : 'textinputclass form-control'}),
+    }

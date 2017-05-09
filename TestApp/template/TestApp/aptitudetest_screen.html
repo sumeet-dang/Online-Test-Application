@@ -4,17 +4,21 @@
 <h3>Time Remaining</h3>
 <p id="countdown_timer" class="font-bitter"></p>
 <br><br>
+<div class="clear_background Areaclass">
+
 
 <form class="" method="post" id="test_form">
   {% csrf_token %}
   {% for o in obj %}
-  <label>{{forloop.counter}}.</label>
+
   {% if o.image %}
     <div class="ques-img">
+      <label>{{forloop.counter}}.Please consider the following image for this question.</label>
+      <br>
       <img src="{{ o.image.url }}" />
     </div>
   {% endif %}
-  <label>Question Statement</label>
+  <label>{{forloop.counter}}.</label><label>Question Statement</label>
   <textarea class="Areaclass form-control" placeholder="{{ o.statement }}" disabled rows="8" cols="50"></textarea>
   <div class="radio">
   <label>
@@ -44,18 +48,20 @@
 
 
   <input type="hidden" class="Areaclass form-control" name="answer{{forloop.counter}}" test-input-class value="{{ o.answer }}"></input>
+
   {% empty %}
     <h1>Nothing to display</h1>
   {% endfor %}
 
 <br><br>
-
+<input type="hidden" id="time" value="{{time_limit}}"></input>
 <input type="submit" class="btn btn-success" value="Submit Test"></input>
 <br><br><br><br>
 </form>
-
+</div>
 <script>
-var minutes = 4;
+var minutes = document.getElementById('time').value - 1;
+console.log(document.getElementById('time').value)
 var seconds = 59;
 var x = setInterval(function() {
   if (minutes <= 0 && seconds == 0) {
@@ -72,5 +78,9 @@ var x = setInterval(function() {
     document.getElementById("countdown_timer").innerHTML = minutes + "m " + seconds + "s ";
   }
 }, 1000);
+
+window.onbeforeunload = function(event) {    
+    return 'Are you sure you want to leave?';
+};
 </script>
 {% endblock %}

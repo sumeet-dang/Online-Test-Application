@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+
 <html>
   <head>
     <meta charset="utf-8">
@@ -49,13 +50,14 @@
 
     <div class="activity-list" id="base_list">
     <ul class="nav nav-pills nav-stacked">
-      <li role="presentation"><a href="{% url 'index' %}">Home</a></li>
-      <li role="presentation"><a href="{% url 'candidate_list' %}">List Candidate</a></li>
-      <li role="presentation"><a href="{% url 'candidate_new' %}">Add Candidate</a></li>
+      <li role="presentation" class="active"><a href="{% url 'index' %}">Home</a></li>
+      <li role="presentation" class="active"><a href="{% url 'candidate_list' %}">List Candidate</a></li>
+      <li role="presentation" class="active"><a href="{% url 'candidate_new' %}">Add Candidate</a></li>
 
-      <li role="presentation"><a href="{% url 'question_list' %}">List Questions</a></li>
-      <li role="presentation"><a href="{% url 'question_new' %}">Add Questions</a></li>
-      <li role="presentation"><a href="{% url 'schedule_list' %}">Schedule List</a></li>
+      <li role="presentation" class="active"><a href="{% url 'question_list' %}">List Questions</a></li>
+      <li role="presentation" class="active"><a href="{% url 'question_new' %}">Add Questions</a></li>
+      <li role="presentation" class="active"><a href="{% url 'schedule_list' %}">Schedule List</a></li>
+      <li role="presentation" class="active"><a href="{% url 'score_list' %}">Candidate Scores</a></li>
     </ul>
 </div>
 
@@ -63,6 +65,9 @@
   {% block content %}
 
   {% endblock %}
+</div>
+<div class="footer">
+  <p>Website Created by <a href="mailto:sumeet.dang101@gmail.com?Subject=Online%20Portal" target="_top" class="emphasize">Sumeet Dang</a> ©</p>
 </div>
 
 

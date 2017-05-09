@@ -1,25 +1,56 @@
-{% extends 'base.html' %}
+{% extends 'base_nologon.html' %}
 
 
 {% block content %}
-  <div class="container">
-    <script>
-      document.getElementById("base_list").style.visibility = "hidden";
-    </script>
-    <h2>Please Login: </h2>
 
+
+    <div class="panel panel-primary smallAreaClass horizontal-center">
+      <div class="panel-heading">
+        Please Login:
+      </div>
+    <div class="panel-body ">
+      <!-- <form method="POST" action="{% url 'login' %}" class="">
+      {% csrf_token %}
+          {{form.as_p}}
+          <input type="submit" class='btn btn-primary ' value="Login"/>
+          <input type="hidden" name="next" value="{{ next }}" />
+
+      </form> -->
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+
+                          <p class="bs-component">
+                              <table>
+                                  <tr>
+                                      <td>{{ form.username.label_tag }}</td>
+                                      <td>{{ form.username }}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>{{ form.password.label_tag }}</td>
+                                      <td>{{ form.password }}</td>
+                                  </tr>
+                              </table>
+                          </p>
+                          <p class="bs-component">
+
+                                  <input class="btn btn-success btn-sm" type="submit" value="Login" />
+
+                          </p>
+                          <input type="hidden" name="next" value="{{ next }}" />
+                      </form>
+
+
+    </div>
     {% if form.errors %}
-        <p>Your username and password didn't match.Please try again!</p>
-    {% endif %}
+    <div class="panel-footer">
+        <p>Your username and password did not match.Please try again!</p>
+      </div>
+  {% endif %}
+  </div>
 
-    <form method="POST" action="{% url 'login' %}">
-    {% csrf_token %}
-        {{form.as_p}}
 
-        <input type="submit" class='btn btn-primary' value="Login" />
-        <input type="hidden" name="next" value="{{ next }}" />
+<div class="container">
 
-    </form>
   </div>
 
 {% endblock %}

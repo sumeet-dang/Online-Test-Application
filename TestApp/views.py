@@ -226,3 +226,10 @@ def select_test(request):
     if(is_apti_scheduled == True):
         aptitude_scheduled = "true";
     return render(request,'select_test.html',{'aptitude_scheduled':is_apti_scheduled})
+
+@candidate_login
+def display_scores(request):
+    candidate_name = Candidate.objects.get(login_id__exact=request.user)
+    print(candidate_name);
+    candidate_scores = CandidateScores.objects.filter(candidate_name__exact=candidate_name)
+    return render(request,'test_result.html',{'candidate_scores':candidate_scores})

@@ -45,5 +45,5 @@ urlpatterns =[
 
     url(r'^start_test',login_required(views.startaptitudetest),name='start_test'),
     url(r'^select_test',login_required(views.select_test),name='select_test'),
-
+    url(r'^test_scores',views.display_scores,name='test_scores'),
 ]

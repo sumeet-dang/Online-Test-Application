@@ -8,6 +8,7 @@
     <!-- Bootstrap CDN -->
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <!-- Custom CSS -->
 <link rel="stylesheet" href="/static/css/TestApp.css">
@@ -39,7 +40,7 @@
               <a >Welcome: {{ user.username }}</a>
             </li>
               {% else %}
-              <li><a class='nav navbar-right' href="{% url 'login' %}" ><span class="glyphicon glyphicon-user"></span></a></li>
+              <li><a class='nav navbar-right' href="{% url 'login' %}" >Login&nbsp&nbsp<span class="glyphicon glyphicon-user"></span></a></li>
             {% endif %}
 
           </ul>
@@ -55,7 +56,8 @@
       <li role="presentation" class="active"><a href="{% url 'test_scores' %}">View History</a></li>
     </ul>
 </div>
-
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <div class="template-content">
   {% block content %}
 
@@ -66,7 +68,7 @@
   <p>Website Created by <a href="mailto:sumeet.dang101@gmail.com?Subject=Online%20Portal" target="_top" class="emphasize">Sumeet Dang</a> ©</p>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
 </html>

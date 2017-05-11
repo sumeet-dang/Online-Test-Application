@@ -202,7 +202,6 @@ def startaptitudetest(request):
     correct_count = 0
     time_limit_row = TestSchedule.objects.values('time_limit')[0]
     time_limit = time_limit_row['time_limit']
-    print(time_limit)
     if request.method == "POST":
         for i in range(num_questions):
             choice = 'chosen' + str(i + 1)
@@ -213,7 +212,7 @@ def startaptitudetest(request):
         score_new = CandidateScores(candidate_name=candidate_name, date_taken=datetime.datetime.now(), score=correct_count)
         score_new.save()
         candidate_scores = CandidateScores.objects.filter(candidate_name__exact=candidate_name)
-
+        
         return render(request,'test_result.html',{'candidate_scores':candidate_scores,'current_score':correct_count})
     else:
         obj = AptitudeQuestion.objects.order_by('?')[:num_questions]

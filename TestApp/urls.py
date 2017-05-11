@@ -24,7 +24,7 @@ urlpatterns =[
     url(r'^admin_index',login_required(TemplateView.as_view(template_name='admin_index.html')),name='admin_index'),
     url(r'^invalid',TemplateView.as_view(template_name='invalid_login.html'),name='invalid_login'),
     url(r'^candidate_index',login_required(TemplateView.as_view(template_name='candidate_index.html')),name='candidate_index'),
-    url(r'^about',login_required(TemplateView.as_view(template_name='about.html')),name='about'),
+    url(r'^about',TemplateView.as_view(template_name='about.html'),name='about'),
     url(r'^candidate_index',login_required(TemplateView.as_view(template_name='candidate_index.html')),name='candidate_index'),
 
     url(r'^candidate/new/$',login_required(views.CreateUserView),name='candidate_new'),

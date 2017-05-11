@@ -4,13 +4,71 @@
 <h3>Time Remaining</h3>
 <p id="countdown_timer" class="font-bitter"></p>
 <br><br>
+
+
+
+<div id="tabs">
+
+  <ul class="tab-list ui-tabs">
+    {% for o in obj %}
+      <li><a href="#tabs-{{forloop.counter}}">{{forloop.counter}}</a></li>
+    {% endfor %}
+      <li><a href="#tabs-x">Submit</a></li>
+  </ul>
+
+
+
+
 <div class="clear_background Areaclass">
 
 
 <form class="" method="post" id="test_form">
   {% csrf_token %}
-  {% for o in obj %}
 
+
+  {% for o in obj %}
+  <div id="tabs-{{forloop.counter}}">
+    {% if o.image %}
+      <div class="ques-img">
+        <label>{{forloop.counter}}.Please consider the following image for this question.</label>
+        <br>
+        <img src="{{ o.image.url }}" />
+      </div>
+      <label>Question Statement</label>
+    {% else %}
+    <label>{{forloop.counter}}.</label><label>Question Statement</label>
+    {% endif %}
+
+    <textarea class="Areaclass form-control font-def" disabled rows="8" cols="50">{{ o.statement }}</textarea>
+    <div class="radio">
+    <label>
+      <input type="radio" name="chosen{{forloop.counter}}" value="1">
+      {{ o.option1 }}
+    </label>
+    </div>
+    <div class="radio">
+    <label>
+      <input type="radio" name="chosen{{forloop.counter}}" value="2">
+      {{ o.option2 }}
+    </label>
+    </div>
+    <div class="radio">
+    <label>
+      <input type="radio" name="chosen{{forloop.counter}}" value="3">
+      {{ o.option3 }}
+    </label>
+    </div>
+    <div class="radio">
+    <label>
+      <input type="radio" name="chosen{{forloop.counter}}" value="4">
+      {{ o.option4 }}
+    </label>
+    </div>
+    <input type="hidden" class="Areaclass form-control" name="answer{{forloop.counter}}" test-input-class value="{{ o.answer }}"></input>
+  <br><br><br>
+  </div>
+  {% endfor %}
+<!--
   {% if o.image %}
     <div class="ques-img">
       <label>{{forloop.counter}}.Please consider the following image for this question.</label>
@@ -21,8 +79,8 @@
   {% else %}
   <label>{{forloop.counter}}.</label><label>Question Statement</label>
   {% endif %}
-  
-  <textarea class="Areaclass form-control" placeholder="{{ o.statement }}" disabled rows="8" cols="50"></textarea>
+
+  <textarea class="Areaclass form-control font-def" disabled rows="8" cols="50">{{ o.statement }}</textarea>
   <div class="radio">
   <label>
     <input type="radio" name="chosen{{forloop.counter}}" value="1">
@@ -52,22 +110,43 @@
 
   <input type="hidden" class="Areaclass form-control" name="answer{{forloop.counter}}" test-input-class value="{{ o.answer }}"></input>
 
-  {% empty %}
-    <h1>Nothing to display</h1>
-  {% endfor %}
+-->
+</div>
+
+<div id="tabs-x">
+
+  <input type="submit" class="btn btn-success" value="Submit Test" onclick="set_sub_check()"></input>
+
+</div>
+
 
 <br><br>
 <input type="hidden" id="time" value="{{time_limit}}"></input>
-<input type="submit" class="btn btn-success" value="Submit Test"></input>
+
 <br><br><br><br>
 </form>
+
 </div>
+
 <script>
+
+$( function() {
+    $( "#tabs" ).tabs();
+  } );
 var minutes = document.getElementById('time').value - 1;
-console.log(document.getElementById('time').value)
+//var minutes = $("#time") - 1;
+//console.log(document.getElementById('time').value)
 var seconds = 59;
+//var minutes = 0;
+var sub_check = true;
+
+function set_sub_check(){
+  sub_check = false;
+}
+
 var x = setInterval(function() {
   if (minutes <= 0 && seconds == 0) {
+        sub_check = false;
         document.getElementById("test_form").submit();
   }
   else {
@@ -83,6 +162,7 @@ var x = setInterval(function() {
 }, 1000);
 
 window.onbeforeunload = function(event) {
+    if(sub_check != false)
     return 'Are you sure you want to leave?';
 };
 </script>

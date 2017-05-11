@@ -1,10 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Add new question</h1>
+<h1>Modify Question</h1>
+
+
 
 <form method="POST" class="question-form" enctype="multipart/form-data">
 {% csrf_token %}
+{% if form.image %}
+  <div class="ques-img">
+    <label >Current Image</label>
+    <br>
+    <img src="{{ form.instance.image.url }}" />
+    <br><br>
+    <label>Upload new image to change current.</label>
+  </div>
+{% endif %}
+
 {{form.as_p}}
 <button type="submit" class="save btn btn-default">Save</button>
 </form>

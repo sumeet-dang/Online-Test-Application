@@ -22,7 +22,7 @@
   padding-bottom: 30px;
   padding-left: 30px;
   padding-right: 30px;
-  background-image: url(../Images/background2.jpg);
+  background-image: url(../Images/background2.gif);
   background-repeat: round;
   border-radius: 20px;
 
@@ -60,7 +60,7 @@ img {
 }
 
 body {
-    background-image:    url(../Images/background1.jpg);
+    background-image:    url(../Images/background1.gif);
     background-size:     cover!important;
     background-repeat:repeat;
     background-size: 100%;

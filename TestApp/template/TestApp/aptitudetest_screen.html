@@ -13,7 +13,7 @@
     {% for o in obj %}
       <li><a href="#tabs-{{forloop.counter}}">{{forloop.counter}}</a></li>
     {% endfor %}
-      <li><a href="#tabs-x">Submit</a></li>
+      <li><a href="#tabs-x" onClick="review_list()">Review</a></li>
   </ul>
 
 
@@ -22,7 +22,7 @@
 <div class="clear_background Areaclass">
 
 
-<form class="" method="post" id="test_form">
+<form class="" method="post" id="test_form" name="test_form">
   {% csrf_token %}
 
 
@@ -42,25 +42,25 @@
     <textarea class="Areaclass form-control font-def" disabled rows="8" cols="50">{{ o.statement }}</textarea>
     <div class="radio">
     <label>
-      <input type="radio" name="chosen{{forloop.counter}}" value="1">
+      <input type="radio" name="chosen{{forloop.counter}}" value="1" group="{{forloop.counter}}">
       {{ o.option1 }}
     </label>
     </div>
     <div class="radio">
     <label>
-      <input type="radio" name="chosen{{forloop.counter}}" value="2">
+      <input type="radio" name="chosen{{forloop.counter}}" value="2" group="{{forloop.counter}}">
       {{ o.option2 }}
     </label>
     </div>
     <div class="radio">
     <label>
-      <input type="radio" name="chosen{{forloop.counter}}" value="3">
+      <input type="radio" name="chosen{{forloop.counter}}" value="3" group="{{forloop.counter}}">
       {{ o.option3 }}
     </label>
     </div>
     <div class="radio">
     <label>
-      <input type="radio" name="chosen{{forloop.counter}}" value="4">
+      <input type="radio" name="chosen{{forloop.counter}}" value="4" group="{{forloop.counter}}">
       {{ o.option4 }}
     </label>
     </div>
@@ -111,17 +111,30 @@
   <input type="hidden" class="Areaclass form-control" name="answer{{forloop.counter}}" test-input-class value="{{ o.answer }}"></input>
 
 -->
-</div>
+
 
 <div id="tabs-x">
+  <ul class="tab-list ui-tabs">
+    {% for o in obj %}
+      <li class="review-list" id="review_ele{{forloop.counter}}" ><a href="#" id="{{forloop.counter}}" onclick="change_tab(this.id)">{{forloop.counter}}</a></li>
+    {% endfor %}
 
+  </ul>
+  <br>
+  <ul class="legend-list font-eczar">
+    <li>Attempted</li>
+    <li>Not Attempted</li>
+  </ul>
+
+  <br>
   <input type="submit" class="btn btn-success" value="Submit Test" onclick="set_sub_check()"></input>
 
 </div>
 
-
+</div>
 <br><br>
 <input type="hidden" id="time" value="{{time_limit}}"></input>
+<input type="hidden" id="obj_len" value="{{obj.count}}"></input>
 
 <br><br><br><br>
 </form>
@@ -129,6 +142,29 @@
 </div>
 
 <script>
+
+//Check all attempted answers and appl css accordingly
+function review_list(){
+
+  for(i = 1; i <= document.getElementById('obj_len').value; i++)
+  {
+    var checked = $("input[group="+i+"]").is(':checked');
+    if(checked == true){
+      $("#review_ele"+i).removeClass("unattempted").addClass("attempted");
+    }
+    else {
+      $("#review_ele"+i).removeClass("attempted").addClass("unattempted");
+    }
+  }
+  //console.log(document.getElementById('obj_len').value)
+  //console.log($("input[group='1']").is(':checked'));
+}
+
+//Change Tab at Review Screen
+function change_tab(id){  
+  var tab_str = '[href="#tabs-' + id + '"]';
+  $(tab_str).click();
+}
 
 $( function() {
     $( "#tabs" ).tabs();

@@ -11,7 +11,7 @@
 }
 
 .clear_background{
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.5);
   position: relative;
   display: block;
   margin-top: 10px;
@@ -25,6 +25,7 @@
   background-image: url(../Images/background2.jpg);
   background-repeat: round;
   border-radius: 20px;
+
 }
 
 img {
@@ -40,7 +41,7 @@ img {
 #tabs, #tabs ul{
   background: none;
   background-color: inherit;
-  
+  border: none;
 }
 
 .tab-list li{
@@ -194,4 +195,36 @@ td {
 .score-table tr:nth-child(even) {
     background-color: #dddddd;
 
+}
+
+.review-list{
+  display:inline;
+}
+
+.review-list{
+
+  padding: 12px;
+  margin: 2px;
+  border-radius:5px;
+}
+
+.attempted{
+  background-color:rgb(124, 224, 94);
+}
+
+.unattempted{
+  background-color: rgb(209, 87, 118);
+}
+
+.legend-list{
+  list-style-type: none;
+   padding: 0;
+   font-weight: bolder;
+   font-style: oblique;
+}
+.legend-list li:first-child{
+  color:rgb(124, 224, 94);
+}
+.legend-list li:nth-child(2){
+  color:rgb(209, 87, 118);
 }

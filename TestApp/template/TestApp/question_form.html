@@ -7,7 +7,7 @@
 
 <form method="POST" class="question-form" enctype="multipart/form-data">
 {% csrf_token %}
-{% if form.image %}
+{% if form.instance.image %}
   <div class="ques-img">
     <label >Current Image</label>
     <br>
